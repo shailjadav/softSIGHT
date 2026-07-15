@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Nerfies-style academic project page  (Bulma-based)
+   "Monocular Vision Based Control Framework for Grasping"
+   ========================================================================== */
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  color: #363636;
+}
+
+/* ---------- Hero / title ---------- */
+.publication-header .hero-body { padding-top: 3.5rem; padding-bottom: 2rem; }
+
+.publication-title {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #1a1a1a;
+}
+
+.publication-venue {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0f766e;
+  background: #e7f6f3;
+  border: 1px solid #c7ebe4;
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.publication-conference {
+  color: #0f766e;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-top: 0.9rem;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  margin-top: 1.1rem;
+}
+.author-block { display: inline-block; margin: 0 0.35rem; }
+.publication-authors a { color: hsl(204, 86%, 45%) !important; }
+.publication-authors a:hover { text-decoration: underline; }
+.publication-authors sup { color: #0f766e; }
+
+.publication-affiliations {
+  color: #4a4a4a;
+  margin-top: 0.4rem;
+}
+.publication-affiliations sup { color: #0f766e; }
+.publication-funding {
+  color: #7a7a7a;
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* ---------- Link buttons ---------- */
+.publication-links { margin-top: 1.6rem; }
+.link-block { display: inline-block; margin: 0.3rem 0.25rem; }
+.publication-links .button {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+.publication-links .button:hover {
+  background-color: #333;
+  border-color: #333;
+  transform: translateY(-2px);
+}
+.publication-links .button .icon { color: #fff; }
+
+/* ---------- Teaser ---------- */
+.hero.teaser { padding: 0; }
+.hero.teaser .container { margin-top: 1rem; }
+.teaser-media {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -18px rgba(20,30,50,0.35);
+  line-height: 0;
+  background: #000;
+}
+.teaser-media video, .teaser-media img { width: 100%; display: block; }
+.hero.teaser .subtitle {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #7a7a7a;
+  line-height: 1.5;
+}
+
+/* ---------- Sections ---------- */
+.section { padding: 3rem 1.5rem; }
+.title.is-3 {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  color: #1a1a1a;
+}
+.section .content { font-size: 1.05rem; line-height: 1.75; }
+
+hr.section-rule { border: none; border-top: 1px solid #ededed; margin: 0; }
+
+/* pull quote in abstract */
+.pull-quote {
+  font-family: 'Castoro', Georgia, serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: #1a1a1a;
+  max-width: 28ch;
+  margin: 0 auto 1.8rem;
+}
+.pull-quote b { color: #0f766e; font-style: normal; }
+
+/* ---------- Figures ---------- */
+.figure {
+  background: #fff;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(20,30,50,.06);
+}
+.figure img { display: block; width: 100%; border-radius: 6px; }
+.figure-caption {
+  font-size: 0.92rem;
+  color: #7a7a7a;
+  line-height: 1.6;
+  margin-top: 0.9rem;
+  padding: 0 0.4rem;
+}
+.figure-caption b { color: #4a4a4a; }
+.cap-lead { color: #0f766e; font-weight: 700; }
+
+/* contributions list */
+.contrib-list li { margin-bottom: 0.6rem; }
+.contrib-list .tag-lead { font-weight: 700; color: #1a1a1a; }
+
+/* highlight stat row */
+.stat-row { margin-top: 0.5rem; }
+.stat-box { text-align: center; padding: 0.6rem; }
+.stat-box .n { font-family: 'Google Sans','Noto Sans',sans-serif; font-size: 1.7rem; font-weight: 700; color: #0f766e; line-height: 1.1; }
+.stat-box .l { font-size: 0.82rem; color: #7a7a7a; margin-top: 0.2rem; }
+
+/* mode chips */
+.mode-chips { margin-top: 1.2rem; }
+.mode-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid #ededed; border-radius: 999px;
+  padding: 0.5rem 1rem; margin: 0.25rem; font-weight: 600; font-size: 0.95rem;
+  background: #fff;
+}
+.mode-chip .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.mode-chip.soft { color: #157a5c; } .mode-chip.soft .swatch { background: #23a37a; }
+.mode-chip.rigid { color: #b26a1f; } .mode-chip.rigid .swatch { background: #c67a1e; }
+
+/* video */
+.video-shell {
+  border-radius: 12px; overflow: hidden; background: #000;
+  box-shadow: 0 10px 30px -14px rgba(20,30,50,.35); line-height: 0;
+}
+.video-shell video { width: 100%; display: block; }
+
+/* table */
+.stiff-table { margin: 0 auto; }
+.stiff-table table { background: #fff; }
+.stiff-table th, .stiff-table td { text-align: right; }
+.stiff-table th:first-child, .stiff-table td:first-child { text-align: left; }
+.stiff-table td.pred { color: #0f766e; font-weight: 700; }
+.stiff-table .divider td {
+  background: #f7f8fb; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #9a9a9a; font-weight: 700; text-align: left;
+}
+
+/* bibtex */
+pre.bibtex {
+  background: #f6f7f9; border: 1px solid #ededed; border-radius: 12px;
+  padding: 1.2rem 1.4rem; overflow-x: auto; font-size: 0.9rem; color: #363636;
+}
+.copy-btn {
+  float: right; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  background: #fff; border: 1px solid #dcdcdc; border-radius: 8px; padding: 0.4rem 0.8rem;
+}
+.copy-btn:hover { background: #f0f0f0; }
+
+/* footer */
+.footer { background: #fafafa; padding: 2.5rem 1.5rem 3rem; }
+.footer .content { color: #7a7a7a; font-size: 0.9rem; }
+.footer a { color: #4a4a4a; }
+.footer .icon-link { font-size: 1.4rem; color: #4a4a4a; margin: 0 0.5rem; }

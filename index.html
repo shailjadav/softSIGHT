@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Monocular Vision Based Control Framework for Grasping</title>
+<meta name="description" content="A unified monocular vision-based framework that grasps both soft and rigid objects using only an RGB camera and a standard position-controlled gripper. Accepted at IEEE AIM 2026." />
+<meta property="og:title" content="Monocular Vision Based Control Framework for Grasping" />
+<meta property="og:description" content="Unified RGB-only grasping of soft and rigid objects with a standard gripper, guided by language-based stiffness priors. IEEE AIM 2026." />
+<meta property="og:image" content="static/images/framework.jpg" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.4/css/academicons.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" />
+<link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+<!-- =========================================================== HERO -->
+<section class="hero publication-header">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <span class="publication-venue">Accepted at IEEE/ASME AIM 2026</span>
+          <h1 class="title is-1 publication-title">Monocular Vision Based Control Framework for Grasping</h1>
+          <p class="publication-conference">2026 IEEE/ASME International Conference on Advanced Intelligent Mechatronics (AIM) &nbsp;·&nbsp; Genova, Italy &nbsp;·&nbsp; July 7-10, 2026</p>
+          <p class="is-size-5" style="color:#555;max-width:640px;margin:0.4rem auto 0;">
+            One RGB camera. One standard gripper. A single control pipeline that handles both soft and rigid objects, with no tactile sensors and no specialized hardware.
+          </p>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://shailjadav.github.io/" target="_blank" rel="noopener">Shail Jadav</a><sup>1</sup></span>
+            <span class="author-block"><a href="https://www.tuwien.at/etit/ict/asl/team/dongheui-lee" target="_blank" rel="noopener">Dongheui Lee</a><sup>1,2</sup></span>
+          </div>
+          <div class="is-size-6 publication-affiliations">
+            <sup>1</sup>Autonomous Systems, TU Wien, Vienna, Austria &nbsp;&nbsp;
+            <sup>2</sup>Institute of Robotics and Mechatronics, DLR, Germany
+          </div>
+          <div class="publication-funding">
+            Supported by the WWTF (SafeDiffusion, ICT25068) and the EU project INVERSE (No. 101136067).
+          </div>
+
+          <div class="column has-text-centered publication-links">
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2607.07897" target="_blank" rel="noopener" class="button is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="static/pdf/paper.pdf" target="_blank" rel="noopener" class="button is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#video" class="button is-rounded is-dark">
+                <span class="icon"><i class="fas fa-video"></i></span><span>Video</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#bibtex" class="button is-rounded is-dark">
+                <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== TEASER -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="teaser-media">
+      <video autoplay muted loop playsinline poster="static/images/teaser_poster.jpg">
+        <source src="static/videos/teaser.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <h2 class="subtitle has-text-centered">
+      <b>The core idea.</b> Our method reads deformation directly from the camera and works well on soft objects <i>(left)</i>, whereas vision-based tactile sensors show very limited sensitivity on soft materials <i>(right)</i>.
+    </h2>
+  </div>
+</section>
+
+<!-- =========================================================== STATS -->
+<section class="section" style="padding-top:1rem;padding-bottom:1rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-mobile stat-row">
+      <div class="column stat-box"><div class="n">RGB-only</div><div class="l">No tactile · no RGB-D</div></div>
+      <div class="column stat-box"><div class="n">30 FPS</div><div class="l">Real-time control loop</div></div>
+      <div class="column stat-box"><div class="n">Soft + Rigid</div><div class="l">One unified pipeline</div></div>
+      <div class="column stat-box"><div class="n">Standard</div><div class="l">Position-controlled gripper</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== ABSTRACT -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <p class="pull-quote">Humans grasp anything, a soft tomato or a rigid bottle, with the <b>same hand and a glance</b>. We give a standard gripper that ability, using vision alone.</p>
+        <div class="content has-text-justified">
+          <p>
+            Grasping in unstructured environments requires handling objects with widely different mechanical
+            properties, from soft and deformable items to rigid everyday objects. Most existing approaches address
+            these categories separately and often rely on tactile sensing, object-specific models, or specialized
+            grippers. We present a <b>unified monocular vision-based grasping framework</b> that targets both soft
+            and rigid objects within a single control pipeline, using only RGB input and a position-controlled gripper.
+          </p>
+          <p>
+            The system combines open-vocabulary object detection, image segmentation, boundary-aware point assignment,
+            real-time point tracking, and monocular depth estimation to recover object motion and geometry from vision.
+            A key component is a <b>language-based stiffness estimation model (StiffNET)</b> that infers an object's
+            expected compliance from its semantic description, providing an object-level prior for selecting the
+            grasping strategy before contact. For deformable objects, adaptation is governed by a <b>Procrustes-based
+            dissimilarity measure</b> from tracked keypoints; for rigid objects, gripper width is regulated through the
+            <b>scaling of tracked point distances</b>. We validate the method with real-world pick-and-place on a Franka
+            Emika Research 3 across lettuce, fresh mozzarella cheese, croissants, paper towels, and hard plastic bottles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== CHALLENGE -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Grasping Across Mechanical Diversity</h2>
+        <p class="content is-size-6" style="max-width:660px;margin:0 auto 1.6rem;color:#555;">
+          Robots must handle objects spanning a vast stiffness range, yet no single system handles both. Prior approaches each trade away generality, whether through hardware, sensing, or model assumptions.
+        </p>
+      </div>
+    </div>
+    <figure class="figure">
+      <img src="static/images/challenge.jpg" alt="The challenge: tactile sensors, specialized grippers, and physics models each have limitations" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Three approaches, three limitations.</span> Tactile sensors are expensive and lose sensitivity on very soft objects; specialized grippers cannot exert forces for rigid objects; physics models require precise material parameters that are hard to obtain in practice.
+      </div>
+    </figure>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== FRAMEWORK -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Framework Overview</h2>
+        <p class="content is-size-6" style="max-width:660px;margin:0 auto 1.6rem;color:#555;">
+          A single RGB pipeline drives two grasping modes. A language prior selects the strategy before contact; visual feedback adapts the gripper width during the grasp.
+        </p>
+      </div>
+    </div>
+    <figure class="figure">
+      <img src="static/images/framework.jpg" alt="Framework overview: monocular perception, language-driven material prior, geometric state estimation, control mode selection, adaptive gripper width control" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Overview.</span> Monocular perception and a language-driven stiffness prior feed a control-mode selector. Deformable objects use a deformation metric; rigid objects use a scaling factor, both regulating gripper width in real time.
+      </div>
+    </figure>
+
+    <div class="columns is-centered" style="margin-top:2rem;">
+      <div class="column is-four-fifths">
+        <div class="content is-size-6">
+          <ul class="contrib-list">
+            <li><span class="tag-lead">Unified RGB-only grasping.</span> One monocular pipeline lets a standard position-controlled gripper handle both compliant and rigid objects, without tactile sensing, RGB-D, mechanics models, or specialized grippers.</li>
+            <li><span class="tag-lead">Language as a pre-contact prior.</span> Semantic knowledge from language yields an object-level compliance prior, so the system picks the right behavior before touching the object.</li>
+            <li><span class="tag-lead">Vision-driven adaptation.</span> Visual feedback alone supports adaptive, stable grasping across everyday objects: a practical, sensor-efficient path for food handling and household manipulation.</li>
+          </ul>
+        </div>
+        <div class="has-text-centered mode-chips">
+          <span class="mode-chip soft"><span class="swatch"></span> Soft &rarr; track a target deformation</span>
+          <span class="mode-chip rigid"><span class="swatch"></span> Rigid &rarr; regulate the scaling factor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== PIPELINE -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Perception Pipeline</h2>
+        <p class="content is-size-6" style="max-width:660px;margin:0 auto 1.6rem;color:#555;">
+          A text prompt and the camera feed drive detection and segmentation; boundary-aware points are tracked and lifted to 3D, then compared against the initial state to estimate deformation.
+        </p>
+      </div>
+    </div>
+    <figure class="figure">
+      <img src="static/images/pipeline.jpg" alt="Perception pipeline: object detection, segmentation, point assignment, tracking, depth estimation, Procrustes analysis, gripper control" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">From pixels to grasp.</span> YOLO-World detection &rarr; SAM&nbsp;2 segmentation &rarr; weighted <i>k</i>-means point assignment &rarr; TAPIR tracking &rarr; Depth&nbsp;Anything&nbsp;V2 &rarr; Procrustes analysis (deformation metric + scaling factor) &rarr; gripper-width control, informed by StiffNET.
+      </div>
+    </figure>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== STIFFNET -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">StiffNET: Reading Stiffness from Language</h2>
+        <p class="content is-size-6" style="max-width:660px;margin:0 auto 1.6rem;color:#555;">
+          Before the gripper touches the object, StiffNET turns a text description into a physical stiffness estimate, deciding <i>how</i> to grasp from semantics alone.
+        </p>
+      </div>
+    </div>
+    <figure class="figure" style="margin-bottom:1.6rem;">
+      <img src="static/images/stiffnet.jpg" alt="StiffNET architecture with CLIP text encoder and Young's modulus comparison table" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Learned log-stiffness axis.</span> A frozen CLIP text encoder plus a small network maps an object name to a physical stiffness, trained jointly on pairwise ordering and sparse measured values. StiffNET matches GPT-5.3 on anchored objects and generalizes to unseen ones.
+      </div>
+    </figure>
+    <figure class="figure">
+      <img src="static/images/stiffness_llm.jpg" alt="LLM (Gemma 3) provides pairwise hardness comparisons between everyday objects" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Supervision from language.</span> An LLM (Gemma&nbsp;3) generates pairwise hardness comparisons between everyday objects (e.g. "which is harder, bread or a diamond?"), giving relative ordering at scale without manual annotation.
+      </div>
+    </figure>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== VIDEO -->
+<section class="section" id="video">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Supplementary Video</h2>
+        <p class="content is-size-6" style="max-width:640px;margin:0 auto 1.4rem;color:#555;">
+          Full walkthrough of the method and real-world grasping experiments across soft and rigid objects.
+        </p>
+        <div class="video-shell">
+          <video controls playsinline preload="metadata" poster="static/images/video_poster.jpg">
+            <source src="static/videos/supplementary.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== EXPERIMENTS -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Experiments</h2>
+      </div>
+    </div>
+    <figure class="figure" style="margin-bottom:2rem;">
+      <img src="static/images/experiments.jpg" alt="Hardware platform and objects tested" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Setup &amp; objects.</span> A Franka Emika Research 3 with a Franka Hand, 3D-printed PLA fingers, and a RAZER Kiyo-X webcam (RGB only) running at 30 FPS. Objects span the deformable-to-rigid spectrum: lettuce, mozzarella, croissant, paper towel, and a hard plastic bottle.
+      </div>
+    </figure>
+
+    <figure class="figure" style="margin-bottom:1.6rem;">
+      <img src="static/images/multi_object.jpg" alt="Grasping lettuce, mozzarella, croissant, and paper roll" />
+      <div class="figure-caption has-text-centered">
+        <span class="cap-lead">Grasping multiple objects.</span> Pick-and-place for deformable objects: lettuce, mozzarella cheese, croissant bread, and a paper roll. The controller adjusts finger width to track the target dissimilarity <b>D</b> (deformation vs. the initial condition) and hold a stable grasp.
+      </div>
+    </figure>
+
+    <div class="columns">
+      <div class="column is-half">
+        <figure class="figure">
+          <img src="static/images/lettuce.jpg" alt="Grasping lettuce over time" />
+          <div class="figure-caption">
+            <span class="cap-lead">Grasping lettuce.</span> As the robot lifts, the scaling factor drops while the object is not yet secured, raising the reference dissimilarity and closing the gripper. Once grasped, all signals stabilize.
+          </div>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <figure class="figure">
+          <img src="static/images/bottle.jpg" alt="Grasping a rigid plastic bottle" />
+          <div class="figure-caption">
+            <span class="cap-lead">Grasping a rigid bottle.</span> With minimal deformation, control relies on the <b>scaling factor (SF)</b>: as the arm ascends, SF falls and the controller narrows the fingers until SF and width stabilize.
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== TABLE -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">StiffNET vs. a Large Language Model</h2>
+        <p class="content is-size-6" style="max-width:620px;margin:0 auto 1.6rem;color:#555;">
+          Young's modulus estimates (GPa). StiffNET recovers physically meaningful stiffness from language alone, used here only to select the control mode.
+        </p>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-two-thirds stiff-table">
+        <table class="table is-fullwidth is-hoverable">
+          <thead>
+            <tr><th>Object</th><th>True (GPa)</th><th>GPT-5.3</th><th>StiffNET</th></tr>
+          </thead>
+          <tbody>
+            <tr class="divider"><td colspan="4">Anchored (ground truth available)</td></tr>
+            <tr><td>Tofu</td><td>0.0001</td><td>0.0001</td><td class="pred">0.0001002</td></tr>
+            <tr><td>Wooden Block</td><td>10</td><td>10</td><td class="pred">9.092</td></tr>
+            <tr><td>Steel</td><td>200</td><td>200</td><td class="pred">210.3</td></tr>
+            <tr><td>PVC (Polyvinyl Chloride)</td><td>2.5</td><td>2.5</td><td class="pred">2.568</td></tr>
+            <tr class="divider"><td colspan="4">Generalization (no ground truth)</td></tr>
+            <tr><td>Cucumber</td><td>n/a</td><td>0.002</td><td class="pred">0.03191</td></tr>
+            <tr><td>Walnut</td><td>n/a</td><td>6</td><td class="pred">18.18</td></tr>
+            <tr><td>Scissors</td><td>n/a</td><td>200</td><td class="pred">157</td></tr>
+            <tr><td>Power Bank</td><td>n/a</td><td>3</td><td class="pred">5.451</td></tr>
+            <tr><td>Plastic Bottle</td><td>n/a</td><td>1.5</td><td class="pred">2.1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- =========================================================== BIBTEX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <button class="copy-btn" onclick="copyBib()">Copy</button>
+    <pre class="bibtex" id="bibtex-block">@inproceedings{jadav2026monocular,
+  title     = {Monocular Vision Based Control Framework for Grasping},
+  author    = {Jadav, Shail and Lee, Dongheui},
+  booktitle = {2026 IEEE/ASME International Conference on Advanced
+               Intelligent Mechatronics (AIM)},
+  address   = {Genova, Italy},
+  year      = {2026}
+}</pre>
+  </div>
+</section>
+
+<!-- =========================================================== FOOTER -->
+<footer class="footer">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="icon-link" href="static/pdf/paper.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i></a>
+    <a class="icon-link" href="https://arxiv.org/abs/2607.07897" target="_blank" rel="noopener"><i class="ai ai-arxiv"></i></a>
+    <a class="icon-link" href="mailto:shail.jadav@tuwien.ac.at"><i class="fas fa-envelope"></i></a>
+    <div class="content" style="margin-top:1rem;">
+      <p>Autonomous Systems, TU Wien &nbsp;·&nbsp; Robotics and Mechatronics, DLR</p>
+      <p style="font-size:0.85rem;">Accepted at the 2026 IEEE/ASME International Conference on Advanced Intelligent Mechatronics (AIM), Genova, Italy.</p>
+      <p style="font-size:0.82rem;">Website template inspired by <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>. © 2026 the authors.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function copyBib() {
+  const text = document.getElementById('bibtex-block').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const b = document.querySelector('.copy-btn');
+    const o = b.textContent; b.textContent = 'Copied ✓';
+    setTimeout(() => b.textContent = o, 1500);
+  });
+}
+</script>
+</body>
+</html>
